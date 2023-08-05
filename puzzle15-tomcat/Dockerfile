@@ -1,6 +1,6 @@
 FROM maven:3-eclipse-temurin-17 AS maven_builder
 WORKDIR /build
-RUN <<EOT
+RUN /bin/bash <<EOT
     set -xe
     apt update && apt install --yes git
     git clone https://github.com/venkaDaria/puzzle15.git
