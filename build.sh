@@ -12,9 +12,15 @@ fi
 apt update --quiet
 apt install --quiet --yes docker.io
 
-docker stop "$1"
-docker rm "$1"
-docker rmi "$PREFIX/$1"
+if [[ -n "$(docker ps --quiet --filter name='$1')" ]]; then
+    docker stop "$1"
+fi
+if [[ -n "$(docker ps --all --quiet --filter name='$1')" ]]; then
+    docker rm "$1"
+fi
+if [[ -n "$(docker images --quiet --filter repository='$1')" ]]; then
+    docker rmi "$PREFIX/$1"
+fi
 
 pushd "$1"
 git pull
