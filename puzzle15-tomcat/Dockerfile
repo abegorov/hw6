@@ -7,6 +7,7 @@ RUN /bin/bash <<EOT
     pushd puzzle15
     rm target -rf
     rm target_heroku -rf
+    sed 's@</modelVersion>@</modelversion>\n    <packaging>war</packaging>@' pom.xml
     mvn package
     popd
 EOT
