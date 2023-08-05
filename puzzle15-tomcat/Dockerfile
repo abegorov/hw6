@@ -1,0 +1,17 @@
+FROM maven:eclipse-temurin-17 AS maven_builder
+WORKDIR /build
+RUN <<EOT
+    set -xe
+    apt update && apt install --yes git
+    git clone https://github.com/venkaDaria/puzzle15.git
+    pushd puzzle15
+    rm target -rf
+    rm target_heroku -rf
+    mvn package
+    popd
+EOT
+
+FROM tomcat:10-jdk17-temurin-jammy
+COPY --from=maven_builder --link \
+     /build/puzzle15/target/Puzzle15-1.0-SNAPSHOT.war \
+     /usr/local/tomcat/webapps/puzzle15
