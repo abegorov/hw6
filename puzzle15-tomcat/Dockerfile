@@ -15,4 +15,4 @@ EOT
 FROM tomcat:10-jdk17-temurin-jammy
 COPY --from=maven_builder --link \
      /build/puzzle15/target/Puzzle15-1.0-SNAPSHOT.war \
-     /usr/local/tomcat/webapps/puzzle15
+     /usr/local/tomcat/webapps/puzzle15.war
