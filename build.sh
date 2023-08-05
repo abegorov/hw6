@@ -18,7 +18,7 @@ fi
 if [[ -n "$(docker ps --all --quiet --filter name='$1')" ]]; then
     docker rm "$1"
 fi
-if [[ -n "$(docker images --quiet --filter repository='$1')" ]]; then
+if [[ -n "$(docker images --quiet '$1')" ]]; then
     docker rmi "$PREFIX/$1"
 fi
 
