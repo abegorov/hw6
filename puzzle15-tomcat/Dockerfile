@@ -1,4 +1,4 @@
-FROM maven:eclipse-temurin-17 AS maven_builder
+FROM maven:3-eclipse-temurin-17 AS maven_builder
 WORKDIR /build
 RUN <<EOT
     set -xe
