@@ -24,6 +24,6 @@ fi
 
 pushd "$1"
 git pull
-docker build --tag "$PREFIX/$1" "$1"
+docker build --tag "$PREFIX/$1" .
 docker run --detach --publish 80:8080 --name "$1" "$PREFIX/$1"
 popd
