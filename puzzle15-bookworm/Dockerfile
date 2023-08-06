@@ -30,3 +30,9 @@ EOT
 COPY --from=builder --link \
      /build/puzzle15/target/Puzzle15-1.0-SNAPSHOT.war \
      /var/lib/tomcat10/webapps/puzzle15.war
+EXPOSE 8080
+ENV CATALINA_HOME=/usr/share/tomcat10
+ENV CATALINA_BASE=/var/lib/tomcat10
+ENV CATALINA_TMPDIR=/tmp
+ENV JAVA_OPTS=-Djava.awt.headless=true
+CMD ["/bin/sh", "/usr/libexec/tomcat10/tomcat-start.sh"]
