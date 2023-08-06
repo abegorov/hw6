@@ -24,8 +24,12 @@ fi
 apt update --quiet
 apt install --quiet --yes docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-if [[ -n "$(docker ps --quiet --filter name="$1")" ]]; then
-    docker stop "$1"
+for dir in *; do
+    if [[ -d "$dir" ]]; then
+        if [[ -n "$(docker ps --quiet --filter name="$dir")" ]]; then
+            docker stop "$dir"
+        fi
+    fi
 fi
 if [[ -n "$(docker ps --all --quiet --filter name="$1")" ]]; then
     docker rm "$1"
