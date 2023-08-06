@@ -33,7 +33,7 @@ for dir in *; do
             docker stop "$dir"
         fi
     fi
-fi
+done
 if [[ -n "$(docker ps --all --quiet --filter name="$CONTAINER")" ]]; then
     docker rm "$CONTAINER"
 fi
