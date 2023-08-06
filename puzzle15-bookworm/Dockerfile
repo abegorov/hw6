@@ -14,7 +14,7 @@ RUN /bin/bash <<EOT
     find src -type f -name '*.java' -exec sed -i 's/javax\./jakarta\./g' {} \;
     find src -type f -name '*.jsp' -exec \
         sed -i 's@http://java.sun.com/jsp/jstl/core@jakarta.tags.core@g' {} \;
-    apt install --yes defaultjdk
+    apt install --yes default-jdk
     /build/maven/bin/mvn clean
     /build/maven/bin/mvn package
     test -f /build/puzzle15/target/Puzzle15-1.0-SNAPSHOT.war
@@ -24,7 +24,7 @@ FROM debian:bookworm
 RUN /bin/bash <<EOT
     set -xe
     apt update
-    apt install --yes defaultjdk
+    apt install --yes default-jdk
     apt install --yes tomcat10
 EOT
 COPY --from=builder --link \
