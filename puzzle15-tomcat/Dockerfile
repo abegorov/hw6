@@ -10,6 +10,7 @@ RUN /bin/bash <<EOT
     sed -i 's@</modelVersion>@</modelVersion>\n    <packaging>war</packaging>@' pom.xml
     mvn package
     popd
+    test -f /build/puzzle15/target/Puzzle15-1.0-SNAPSHOT.war
 EOT
 
 FROM tomcat:9-jdk17-temurin
