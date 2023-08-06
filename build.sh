@@ -1,10 +1,13 @@
 #!/bin/bash
 
 PREFIX=abegorov
+CONTAINER="$(basename $1)"
 
 set -ex
 
-if [[ ! -d "$1" ]]; then
+pushd "$(dirname $1)"
+
+if [[ ! -d "$CONTAINER" ]]; then
     echo USAGE: $0 dir
     exit 1
 fi
@@ -31,15 +34,14 @@ for dir in *; do
         fi
     fi
 fi
-if [[ -n "$(docker ps --all --quiet --filter name="$1")" ]]; then
-    docker rm "$1"
+if [[ -n "$(docker ps --all --quiet --filter name="$CONTAINER")" ]]; then
+    docker rm "$CONTAINER"
 fi
-if [[ -n "$(docker images --quiet "$1")" ]]; then
-    docker rmi "$PREFIX/$1"
+if [[ -n "$(docker images --quiet "$PREFIX/$CONTAINER")" ]]; then
+    docker rmi "$PREFIX/$CONTAINER"
 fi
 
-pushd "$1"
+pushd "$CONTAINER"
 git pull
-docker build --tag "$PREFIX/$1" .
-docker run --detach --publish 80:8080 --name "$1" "$PREFIX/$1"
-popd
+docker build --tag "$PREFIX/$CONTAINER" .
+docker run --detach --publish 80:8080 --name "$1" "$CONTAINER"
