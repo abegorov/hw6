@@ -44,4 +44,4 @@ fi
 pushd "$CONTAINER"
 git pull
 docker build --tag "$PREFIX/$CONTAINER" .
-docker run --detach --publish 80:8080 --name "$1" "$CONTAINER"
+docker run --detach --publish 80:8080 --name "$CONTAINER" "$PREFIX/$CONTAINER"
